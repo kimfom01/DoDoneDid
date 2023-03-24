@@ -89,7 +89,7 @@ function _displayItems(data) {
 
     _displayCount(data.length);
 
-    const button = document.createElement('button');
+    const button = document.createElement('i');
 
     data.forEach(item => {
         let isCompleteCheckbox = document.createElement('input');
@@ -99,23 +99,21 @@ function _displayItems(data) {
         isCompleteCheckbox.checked = item.isCompleted;
 
         let editButton = button.cloneNode(false);
-        editButton.innerText = 'Edit';
-        editButton.classList.add("btn", "btn-primary");
+        editButton.classList.add("btn", "btn-outline-primary", "bi", "bi-pen-fill", "text-primary");
         editButton.setAttribute('onclick', `displayEditForm(${item.id})`);
 
         let deleteButton = button.cloneNode(false);
-        deleteButton.innerText = 'Delete';
-        deleteButton.classList.add("btn", "btn-primary");
+        deleteButton.classList.add("btn", "btn-outline-primary", "bi", "bi-trash-fill", "text-primary");
         deleteButton.setAttribute('onclick', `deleteItem(${item.id})`);
 
         let tr = tBody.insertRow();
 
-        let td1 = tr.insertCell(0);
-        td1.appendChild(isCompleteCheckbox);
-
-        let td2 = tr.insertCell(1);
+        let td2 = tr.insertCell(0);
         let textNode = document.createTextNode(item.task);
         td2.appendChild(textNode);
+
+        let td1 = tr.insertCell(1);
+        td1.appendChild(isCompleteCheckbox);
 
         let td3 = tr.insertCell(2);
         td3.appendChild(editButton);
