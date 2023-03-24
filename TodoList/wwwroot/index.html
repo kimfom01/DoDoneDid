@@ -12,19 +12,23 @@
 <body>
 <div class="container center mt-5">
     <h1>Todo List</h1>
-    <h3>Add</h3>
+    <h3 class="mt-5">Add</h3>
     <form class="form-group" action="javascript:void(0);" method="post" onsubmit="addItem()">
         <input type="text" required minlength="3" id="add-task" placeholder="New todo task">
         <input class="btn btn-outline-primary" type="submit" value="Add">
     </form>
 
     <div id="editForm">
-        <h3>Edit</h3>
+        <h3 class="mt-5">Edit</h3>
         <form class="form-group" action="javascript:void(0);" onsubmit="updateItem()">
             <input type="hidden" id="edit-id">
-            <input type="checkbox" id="edit-isComplete">
             <input type="text" id="edit-task" required minlength="3" placeholder="Todo task">
-            <span class="text text-danger"></span>
+            <select name="status" required id="edit-status">
+                <option selected value="">-- Please choose a status --</option>
+                <option value="1">Todo</option>
+                <option value="2">In Progress</option>
+                <option value="3">Completed</option>
+            </select>
             <input class="btn btn-primary" type="submit" value="Save">
             <a onclick="closeInput()" aria-label="Close">&#10006</a>
         </form>
