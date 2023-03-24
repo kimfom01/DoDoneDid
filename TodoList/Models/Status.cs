@@ -2,7 +2,7 @@ namespace TodoList.Models;
 
 public enum Status
 {
-    Todo,
+    Todo = 1,
     InProgress,
     Complete
 }
