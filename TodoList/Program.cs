@@ -9,7 +9,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<TodoDbContext>(options =>
 {
-    options.UseSqlServer(builder.Configuration.GetConnectionString("TodoDb"));
+    options.UseNpgsql(builder.Configuration.GetConnectionString("TodoDb"));
 });
 builder.Services.AddScoped<IRepository, TodoRepository>();
 
@@ -29,5 +29,9 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+
+var context = app.Services.CreateScope()
+    .ServiceProvider.GetRequiredService<TodoDbContext>();
+await context.Database.EnsureCreatedAsync();
 
 app.Run();
