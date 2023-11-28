@@ -1,37 +1,49 @@
-using Microsoft.EntityFrameworkCore;
+using TodoList;
 using TodoList.Data;
+using TodoList.Models;
 using TodoList.Repositories;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
+builder.Services.AddAuthorization();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<TodoDbContext>(options =>
 {
-    options.UseNpgsql(builder.Configuration.GetConnectionString("TodoDb"));
+    options.UseNpgsql(EnvironmentConfigHelper.GetConnectionString(builder.Configuration, builder.Environment));
 });
+builder.Services.AddIdentityApiEndpoints<User>()
+    .AddEntityFrameworkStores<TodoDbContext>();
 builder.Services.AddScoped<IRepository, TodoRepository>();
 
 var app = builder.Build();
+
+AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
+
+var context = app.Services.CreateScope()
+    .ServiceProvider.GetRequiredService<TodoDbContext>();
 
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
+    await context.Database.EnsureDeletedAsync();
 }
+
+await context.Database.EnsureCreatedAsync();
 
 app.UseDefaultFiles();
 app.UseStaticFiles();
 
 app.UseHttpsRedirection();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
 
-var context = app.Services.CreateScope()
-    .ServiceProvider.GetRequiredService<TodoDbContext>();
-await context.Database.EnsureCreatedAsync();
+app.MapGroup("/account").MapIdentityApi<User>();
 
 app.Run();
