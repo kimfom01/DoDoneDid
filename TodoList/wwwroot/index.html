@@ -3,29 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
     <link rel="stylesheet" href="css/site.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" 
-          rel="stylesheet"
-          integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" 
-          crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
-    <title>Todo List App</title>
+    <link crossorigin="anonymous" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+          integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css" rel="stylesheet">
+    <title>Do, Done, Did</title>
 </head>
 <body>
 <div class="container center mt-5">
-    <h1>Todo List</h1>
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#loginModal">
+        Login
+    </button>
+    <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#registerModal">
+        Register
+    </button>
+    <button type="button" onclick="logoutUser()" class="btn btn-outline-primary">Logout</button>
+    <h1>Todos</h1>
     <h3 class="mt-3">Add</h3>
     <form class="form-group" action="javascript:void(0);" method="post" onsubmit="addItem()">
-        <input type="text" required minlength="3" id="add-task" placeholder="New todo task">
-        <input class="btn btn-outline-primary" type="submit" value="Add">
+        <div class="d-flex justify-content-center align-items-center">
+            <input type="text" class="form-control w-auto" required
+                   minlength="3" id="add-task" placeholder="New todo task">
+            <input class="btn btn-outline-primary ms-3" type="submit" value="Add">
+        </div>
     </form>
 
     <div id="editForm">
         <h3 class="mt-5">Edit</h3>
-        <form class="form-group d-flex justify-content-center align-items-center flex-wrap" 
+        <form class="form-group d-flex justify-content-center align-items-center flex-wrap"
               action="javascript:void(0);" onsubmit="updateItem()">
             <input type="hidden" id="edit-id">
-            <input type="text" class="form-control-sm me-3" id="edit-task" required minlength="3" 
+            <input type="text" class="form-control-sm me-3" id="edit-task" required minlength="3"
                    placeholder="Todo task">
             <select name="status" class="form-select-sm me-3" required id="edit-status">
                 <option selected value="">-- Please choose a status --</option>
@@ -51,9 +60,76 @@
         </thead>
         <tbody class="table-group-divider" id="tasks"></tbody>
     </table>
+
+    <!-- Register Modal -->
+    <div class="modal fade" id="registerModal" tabindex="-1" aria-labelledby="registerModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="registerModalLabel">Register</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form action="javascript:void(0);" method="post">
+                    <div class="modal-body">
+                        <div class="form-floating mb-3">
+                            <input id="r_email" type="email" name="r_email" class="form-control"
+                                   placeholder="name@example.com">
+                            <label for="r_email">Email Address</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input id="r_password" type="password" name="r_password" class="form-control"
+                                   placeholder="password">
+                            <label for="r_password">Password</label>
+                        </div>
+                    </div>
+                    <div id="registerMessage"></div>
+                    <div class="modal-footer">
+                        <button type="button" data-bs-dismiss="modal" class="btn btn-primary">Close</button>
+                        <button type="button" onclick="registerUser()" class="btn btn-primary">Register</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Register Modal -->
+    <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="loginModalLabel">Login</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form action="javascript:void(0);" method="post">
+                    <div class="modal-body">
+                        <div class="form-floating mb-3">
+                            <input id="l_email" type="email" name="l_email" class="form-control"
+                                   placeholder="name@example.com">
+                            <label for="r_email">Email Address</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input id="l_password" type="password" name="l_password" class="form-control"
+                                   placeholder="password">
+                            <label for="r_password">Password</label>
+                        </div>
+                    </div>
+                    <div id="loginMessage"></div>
+                    <div class="modal-footer">
+                        <button type="button" data-bs-dismiss="modal" class="btn btn-primary">Close</button>
+                        <button type="button" onclick="loginUser()" class="btn btn-primary">login</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
 </div>
 
 <script src="js/site.js"></script>
+<script crossorigin="anonymous"
+        integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 <script type="text/javascript">
     getItems();
 </script>
