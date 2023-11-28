@@ -4,8 +4,8 @@ using TodoList.Repositories;
 
 namespace TodoList.Controllers;
 
-[Route("api/[controller]")]
 [ApiController]
+[Route("api/[controller]")]
 public class TodoListController: ControllerBase
 {
     private readonly IRepository _repository;
