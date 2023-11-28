@@ -34,9 +34,10 @@
         <form class="form-group d-flex justify-content-center align-items-center flex-wrap"
               action="javascript:void(0);" onsubmit="updateItem()">
             <input type="hidden" id="edit-id">
-            <input type="text" class="form-control-sm me-3" id="edit-task" required minlength="3"
+            <input type="hidden" id="user-id">
+            <input type="text" class="form-control w-auto me-3" id="edit-task" required minlength="3"
                    placeholder="Todo task">
-            <select name="status" class="form-select-sm me-3" required id="edit-status">
+            <select name="status" class="form-select w-auto me-3" required id="edit-status">
                 <option selected value="">-- Please choose a status --</option>
                 <option value="1">Todo</option>
                 <option value="2">In Progress</option>

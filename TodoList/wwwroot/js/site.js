@@ -14,7 +14,7 @@ const addItem = () => {
     const taskTitleTextBox = document.getElementById('add-task');
 
     const todoItem = {
-        task: taskTitleTextBox.value.trim(), status: 1,
+        task: taskTitleTextBox.value.trim(), status: 1, userId: "a24b2911-31c0-43ed-8657-4878e3abe626"
     };
 
     fetch(uri, {
@@ -44,14 +44,20 @@ const displayEditForm = (id) => {
     document.getElementById('edit-id').value = todoItem.id;
     document.getElementById('edit-task').value = todoItem.task;
     document.getElementById('edit-status').value = todoItem.status;
+    document.getElementById('user-id').value = todoItem.userId;
     document.getElementById('editForm').style.display = 'block';
 }
 
 const updateItem = () => {
     const itemId = document.getElementById('edit-id').value;
+    const userId = document.getElementById('user-id').value
     const status = document.getElementById('edit-status').value;
+    const task = document.getElementById('edit-task').value.trim();
     const item = {
-        id: parseInt(itemId, 10), task: document.getElementById('edit-task').value.trim(), status: parseInt(status, 10),
+        id: parseInt(itemId, 10),
+        task: task,
+        status: parseInt(status, 10),
+        userId: userId
     };
 
     fetch(`${uri}/${itemId}`, {
