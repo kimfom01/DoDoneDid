@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/site.css">
+    <link crossorigin="anonymous" href="/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/bootstrap-icons.min.css" rel="stylesheet">
+    <title>Login - Do, Done, Did</title>
+</head>
+<body>
+
+<div class="container center mt-5">
+    <h1>Do, Done, Did</h1>
+    <div class="d-flex justify-content-center mt-5 align-items-center">
+        <form action="javascript:void(0);" method="post">
+            <div class="card">
+                <div class="card-body">
+                    <div class="form-floating mb-3">
+                        <input id="l_email" type="email" name="l_email" class="form-control"
+                               placeholder="name@example.com">
+                        <label for="l_email">Email Address</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input id="l_password" type="password" name="l_password" class="form-control"
+                               placeholder="password">
+                        <label for="l_password">Password</label>
+                    </div>
+                    <div id="loginMessage"></div>
+                </div>
+                
+                <div class="card-footer">
+                    <button type="button" onclick="loginUser()" class="btn d-flex-1 px-5 btn-primary">Login</button>
+                    <p>Don't have an account? <a href="/auth/register.html">Register here</a></p>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<script src="/js/auth.js"></script>
+<script src="/js/bootstrap.bundle.min.js"></script>
+<script type="text/javascript"></script>
+</body>
+</html>
