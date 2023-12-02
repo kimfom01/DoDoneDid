@@ -44,6 +44,8 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-app.MapGroup("/account").MapIdentityApi<User>();
+app.MapGroup("/api/Auth")
+    .MapIdentityApi<User>()
+    .WithTags("Auth");
 
 app.Run();
