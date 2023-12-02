@@ -12,7 +12,7 @@ public class TodoRepository : IRepository
     {
         _todoDbContext = todoDbContext;
     }
-    
+
     public async Task AddItem(TodoItem todoItem)
     {
         await _todoDbContext.AddAsync(todoItem);
@@ -28,11 +28,11 @@ public class TodoRepository : IRepository
         }
     }
 
-    public async Task<IEnumerable<TodoItem>?> GetItems()
+    public async Task<IEnumerable<TodoItem>?> GetItems(string userId)
     {
         var items = await _todoDbContext.TodoItems
-                                                    .AsNoTracking()
-                                                    .ToListAsync();
+            .Where(td => td.UserId == userId)
+            .AsNoTracking().ToListAsync();
 
         return items;
     }

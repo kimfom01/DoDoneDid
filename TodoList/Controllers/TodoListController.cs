@@ -16,9 +16,9 @@ public class TodoListController: ControllerBase
     }
 
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<TodoItem>>> GetTodoItems()
+    public async Task<ActionResult<IEnumerable<TodoItem>>> GetTodoItems(string userId)
     {
-        var todoItems = await _repository.GetItems();
+        var todoItems = await _repository.GetItems(userId);
         
         if (todoItems is null)
         {
