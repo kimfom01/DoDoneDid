@@ -10,11 +10,18 @@
     <title>Do, Done, Did</title>
 </head>
 <body>
-<div class="container center">
-    <div align="right">
-        <button type="button" onclick="logoutUser()" class="btn btn-outline-primary">Logout</button>
+<nav class="navbar bg-dark">
+    <div class="container">
+        <a class="navbar-brand text-light" href="/">
+            Do, Done, Did
+        </a>
+        <div align="right">
+            <a type="button" onclick="logoutUser()" class="btn btn-outline-light">Logout</a>
+        </div>
     </div>
-    <h1>Do, Done, Did</h1>
+</nav>
+<div class="container center">
+    
     <h3 class="mt-3">Add a new task</h3>
     <form class="form-group" action="javascript:void(0);" method="post" onsubmit="addItem()">
         <div class="d-flex justify-content-center align-items-center">

@@ -23,7 +23,7 @@ const registerUser = () => {
                 });
             } else {
                 registerMessage.innerText = "Successfully Registered";
-                location.href = "auth/login.html";
+                location.href = "/auth/login.html";
                 const modal = bootstrap.Modal.getInstance(registerModal);
                 setTimeout(() => {
                     modal.hide()

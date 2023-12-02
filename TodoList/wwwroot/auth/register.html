@@ -10,12 +10,22 @@
     <title>Register - Do, Done, Did</title>
 </head>
 <body>
+<nav class="navbar bg-dark">
+    <div class="container">
+        <a class="navbar-brand text-light" href="/">
+            Do, Done, Did
+        </a>
+        <div align="right">
+            <a type="button" href="/auth/login.html" class="btn btn-outline-light">Login</a>
+        </div>
+    </div>
+</nav>
 <div class="container center mt-5">
-    <h1>Do, Done, Did</h1>
     <div class="d-flex justify-content-center mt-5 align-items-center">
         <form action="javascript:void(0);" method="post">
             <div class="card">
                 <div class="card-body">
+                    <h1>Register</h1>
                     <div class="form-floating mb-3">
                         <input id="r_email" type="email" name="r_email" class="form-control"
                                placeholder="name@example.com">
@@ -29,7 +39,8 @@
                     <div id="registerMessage"></div>
                 </div>
                 <div class="card-footer">
-                    <button type="button" onclick="registerUser()" class="btn d-flex-1 px-5 btn-primary">Register</button>
+                    <button type="button" onclick="registerUser()" class="btn w-100 btn-primary">Register
+                    </button>
                     <p>Already have an account? <a href="/auth/login.html">Login</a></p>
                 </div>
             </div>
