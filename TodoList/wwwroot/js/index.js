@@ -1,10 +1,11 @@
 "use strict";
 
 const uri = 'api/TodoList';
-let todos = []
+let todos = [];
+const userId = localStorage.getItem("userId");
 
 const getItems = () => {
-    fetch(uri)
+    fetch(`${uri}?userId=${userId}`)
         .then(response => response.json())
         .then(data => _displayItems(data))
         .catch(error => console.error('Unable to get items.', error));
@@ -14,7 +15,7 @@ const addItem = () => {
     const taskTitleTextBox = document.getElementById('add-task');
 
     const todoItem = {
-        task: taskTitleTextBox.value.trim(), status: 1, userId: "a24b2911-31c0-43ed-8657-4878e3abe626"
+        task: taskTitleTextBox.value.trim(), status: 1, userId
     };
 
     fetch(uri, {
@@ -44,13 +45,11 @@ const displayEditForm = (id) => {
     document.getElementById('edit-id').value = todoItem.id;
     document.getElementById('edit-task').value = todoItem.task;
     document.getElementById('edit-status').value = todoItem.status;
-    document.getElementById('user-id').value = todoItem.userId;
     document.getElementById('editForm').style.display = 'block';
 }
 
 const updateItem = () => {
     const itemId = document.getElementById('edit-id').value;
-    const userId = document.getElementById('user-id').value
     const status = document.getElementById('edit-status').value;
     const task = document.getElementById('edit-task').value.trim();
     const item = {
@@ -129,14 +128,39 @@ const _displayItems = (data) => {
     todos = data;
 }
 
-const checkLogin = () => {
-    const token = sessionStorage.getItem("accessToken");
+const saveUserId = () => {
+    const userId = localStorage.getItem("userId");
 
-    if (!token) {
-        location.href = "/auth/login.html"
+    if (!userId) {
+        fetch("/api/Auth/user-id", {
+            method: "get",
+            credentials: "include"
+        })
+            .then(response => {
+                if (response.status !== 200) {
+                    location.href = "/auth/login.html"
+                } else {
+                    return response.json();
+                }
+            })
+            .then(res => {
+                localStorage.setItem("userId", res.userId);
+                location.href = "/";
+            })
+            .catch(err => console.error(err))
     }
+
+
+}
+
+const logoutUser = () => {
+    localStorage.clear();
+    fetch("/api/Auth/logout")
+        .then(() => {
+            location.href = "/auth/login.html"
+        })
 }
 
 // Call functions below here
-checkLogin();
+saveUserId();
 getItems();
