@@ -27,14 +27,17 @@
                 <div class="card-body">
                     <h1>Register</h1>
                     <div class="form-floating mb-3">
-                        <input id="r_email" type="email" name="r_email" class="form-control"
+                        <input id="email" type="email" name="email" class="form-control"
                                placeholder="name@example.com">
-                        <label for="r_email">Email Address</label>
+                        <label for="email">Email Address</label>
                     </div>
-                    <div class="form-floating mb-3">
-                        <input id="r_password" type="password" name="r_password" class="form-control"
-                               placeholder="password">
-                        <label for="r_password">Password</label>
+                    <div class="d-flex password-container">
+                        <div class="form-floating w-100 mb-3">
+                            <input id="password" type="password" name="password" class="form-control"
+                                   placeholder="password">
+                            <label for="password">Password</label>
+                        </div>
+                        <i class="bi bi-eye-slash" id="togglePassword"></i>
                     </div>
                     <div id="registerMessage"></div>
                 </div>
