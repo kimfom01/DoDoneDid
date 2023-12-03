@@ -29,3 +29,15 @@ td {
     padding: 5px;
     vertical-align: middle;
 }
+
+.password-container {
+    position: relative;
+}
+
+form i {
+    position: absolute;
+    right: 15px;
+    top: 15px;
+    cursor: pointer;
+    z-index: 100;
+}
