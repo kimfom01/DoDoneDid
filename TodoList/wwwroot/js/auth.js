@@ -1,6 +1,6 @@
 const registerUser = () => {
-    const email = document.getElementById("r_email").value;
-    const password = document.getElementById("r_password").value;
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
 
     const registerMessage = document.getElementById("registerMessage");
 
@@ -28,8 +28,8 @@ const registerUser = () => {
 }
 
 const loginUser = () => {
-    const email = document.getElementById("l_email").value;
-    const password = document.getElementById("l_password").value;
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
 
     const loginMessage = document.getElementById("loginMessage");
 
@@ -55,3 +55,14 @@ const loginUser = () => {
             }
         });
 }
+
+const togglePassword = document.querySelector("#togglePassword");
+const password = document.querySelector("#password");
+
+togglePassword.addEventListener("click", function () {
+    const type = password.getAttribute("type") === "password" ? "text" : "password";
+    password.setAttribute("type", type);
+    
+    this.classList.toggle('bi-eye');
+    this.classList.toggle('bi-eye-slash');
+});
