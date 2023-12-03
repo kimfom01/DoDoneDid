@@ -1,17 +1,38 @@
-# Todo List
+#  Do, Done, Did
 
-### Requirements
-- [x] This is an application where you should manage a todo list.
-- [x] Users should be able to Add, Delete, Update and Read from a database, using a SPA (single-page application). The user should never be redirected to a new page.
-- [x] You need to use Entity Framework, raw SQL isn't allowed.
-- [x] You don't need a navigation bar. No menu is necessary since you'll only have one page.
-- [x] Once you execute any operation, the todo-list needs to be updated accordingly.
-- [x] Your data model is only one table with to-dos. You. might be tempted to create more complex data-models (categories of todos for example) but avoid that for now. We're focusing on the front-end.
+## Introduction
+- This is an application where users can manage/track their tasks
+- The application is tailored to simplify the process of tracking the status of pending tasks improving the productivity of all users.
 
-### Resources
-- [x] [Web API + Fetch API](https://learn.microsoft.com/en-us/aspnet/core/tutorials/first-web-api?view=aspnetcore-7.0&tabs=visual-studio)
-- [x] [Fetch API Docs](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch)
-- [x] [Fetch API crash course on Youtube](https://www.youtube.com/watch?v=Oive66jrwBs)
+## Installation
 
-### Source
-This project is part of [The C# Academy's](https://www.thecsharpacademy.com/) .NET Full-Stack Developer Roadmap
+### Prerequisites
+- Ensure [.NET SDK/Runtime](https://dotnet.microsoft.com/download) (version 8.0 is installed on your machine.
+- Ensure you have `postgres` installed on your machine or you can connect to remote db.
+- Install [Visual Studio](https://visualstudio.microsoft.com/) or Rider (not free).
+
+### Getting the Project
+- Clone the repository: `git clone https://github.com/kimfom01/TrackYourSpending.git`
+- Alternatively, download and extract the project ZIP file.
+
+### Configuration
+
+- Update `appsettings.json` with your typical postgres [connection string](https://www.connectionstrings.com/postgresql/).
+
+### Building the Project
+- Navigate to the project's root directory in the terminal.
+- Run `dotnet build` to compile the project.
+
+### Running the Application
+- Execute `dotnet run` within the project directory.
+- Access the application via the provided local server URL for web projects.
+
+### Publishing (For Deployment)
+- Run `dotnet publish -c Release -o ./publish` to package the application for deployment.
+- Deploy the contents of the `./publish` directory to your hosting environment.
+
+---
+
+## Features
+- Individual accounts
+- Track tasks
