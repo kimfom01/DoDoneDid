@@ -1,4 +1,4 @@
-namespace TodoList.Models;
+namespace DoDoneDid.Models;
 
 public enum Status
 {

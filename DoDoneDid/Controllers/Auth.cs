@@ -1,9 +1,9 @@
 using System.Security.Claims;
+using DoDoneDid.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using TodoList.Models;
 
-namespace TodoList.Controllers;
+namespace DoDoneDid.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]

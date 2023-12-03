@@ -1,7 +1,7 @@
-using TodoList;
-using TodoList.Data;
-using TodoList.Models;
-using TodoList.Repositories;
+using DoDoneDid;
+using DoDoneDid.Data;
+using DoDoneDid.Models;
+using DoDoneDid.Repositories;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);

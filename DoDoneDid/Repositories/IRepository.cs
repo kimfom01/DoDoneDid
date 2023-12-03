@@ -1,6 +1,6 @@
-using TodoList.Models;
+using DoDoneDid.Models;
 
-namespace TodoList.Repositories;
+namespace DoDoneDid.Repositories;
 
 public interface IRepository
 {

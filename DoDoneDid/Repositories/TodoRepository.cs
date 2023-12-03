@@ -1,8 +1,8 @@
+using DoDoneDid.Data;
+using DoDoneDid.Models;
 using Microsoft.EntityFrameworkCore;
-using TodoList.Data;
-using TodoList.Models;
 
-namespace TodoList.Repositories;
+namespace DoDoneDid.Repositories;
 
 public class TodoRepository : IRepository
 {
