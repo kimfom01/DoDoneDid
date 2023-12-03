@@ -48,7 +48,7 @@ jobs:
           path: .
 
       - name: Build Docker Image
-        run: docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/dodonedid:latest ./TodoList/
+        run: docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/dodonedid:latest ./DoDoneDid/
 
       - name: Login to Docker Hub
         uses: docker/login-action@v3

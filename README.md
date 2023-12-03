@@ -1,5 +1,7 @@
 #  Do, Done, Did
 
+---
+
 ## Introduction
 - This is an application where users can manage/track their tasks
 - The application is tailored to simplify the process of tracking the status of pending tasks improving the productivity of all users.
