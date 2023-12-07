@@ -79,7 +79,9 @@ const _displayItems = (data) => {
         let tr = tBody.insertRow();
 
         let td1 = tr.insertCell(0);
-        let taskNode = document.createTextNode(item.task);
+        let taskNode = document.createElement("p");
+        taskNode.innerText = item.task;
+        taskNode.classList.add("wrap-text");
         item.status === 3 ? td1.classList.add("text-decoration-line-through") : ""
         td1.appendChild(taskNode);
 
