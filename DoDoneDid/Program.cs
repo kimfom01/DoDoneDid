@@ -1,3 +1,4 @@
+using System.Reflection;
 using DoDoneDid;
 using DoDoneDid.Data;
 using DoDoneDid.Models;
@@ -17,6 +18,7 @@ builder.Services.AddDbContext<TodoDbContext>(options =>
 builder.Services.AddIdentityApiEndpoints<User>()
     .AddEntityFrameworkStores<TodoDbContext>();
 builder.Services.AddScoped<IRepository, TodoRepository>();
+builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
 var app = builder.Build();
 
