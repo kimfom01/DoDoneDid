@@ -1,4 +1,6 @@
+using AutoMapper;
 using DoDoneDid.Models;
+using DoDoneDid.Models.Dtos;
 using DoDoneDid.Repositories;
 using Microsoft.AspNetCore.Mvc;
 
@@ -6,37 +8,50 @@ namespace DoDoneDid.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-public class TodoListController: ControllerBase
+public class TodoListController : ControllerBase
 {
     private readonly IRepository _repository;
+    private readonly IMapper _mapper;
 
-    public TodoListController(IRepository repository)
+    public TodoListController(IRepository repository, IMapper mapper)
     {
         _repository = repository;
+        _mapper = mapper;
     }
 
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<TodoItem>>> GetTodoItems(string userId)
+    public async Task<ActionResult<IEnumerable<GetTodoItemDto>>> GetTodoItems([FromQuery] string userId)
     {
-        var todoItems = await _repository.GetItems(userId);
-        
-        if (todoItems is null)
+        var todoItems = await _repository.GetItemsForUser(userId);
+
+        if (!todoItems.Any())
         {
             return NotFound();
         }
 
-        return Ok(todoItems);
+        var getTodoItemDtoList = _mapper.Map<IEnumerable<GetTodoItemDto>>(todoItems);
+
+        return Ok(getTodoItemDtoList);
     }
 
-    [HttpGet("{id}")]
-    public async Task<ActionResult<TodoItem>> GetTodoItem(int id)
+    [HttpGet("completed")]
+    public async Task<ActionResult<IEnumerable<GetTodoItemDto>>> GetCompletedTodoItems([FromQuery] string userId)
     {
-        var todoItemExists = await _repository.TodoItemExists(id);
-        if (!todoItemExists)
+        var todoItems = await _repository.GetCompletedItemsForUser(userId);
+
+        if (!todoItems.Any())
         {
             return NotFound();
         }
-        
+
+        var getTodoItemDtoList = _mapper.Map<IEnumerable<GetTodoItemDto>>(todoItems);
+
+        return Ok(getTodoItemDtoList);
+    }
+
+    [HttpGet("{id:int}")]
+    public async Task<ActionResult<GetTodoItemDto>> GetTodoItem([FromRoute] int id)
+    {
         var todoItem = await _repository.GetItemById(id);
 
         if (todoItem is null)
@@ -44,57 +59,77 @@ public class TodoListController: ControllerBase
             return NotFound();
         }
 
-        return Ok(todoItem);
+        var getTodoItemDto = _mapper.Map<GetTodoItemDto>(todoItem);
+
+        return Ok(getTodoItemDto);
     }
 
     [HttpPost]
-    public async Task<ActionResult<TodoItem>> PostTodoItem(TodoItem todoItem)
+    public async Task<ActionResult<CreateTodoItemDto>> PostTodoItem([FromBody] CreateTodoItemDto createTodoItemDto)
     {
-        if (string.IsNullOrWhiteSpace(todoItem.Task))
+        if (string.IsNullOrWhiteSpace(createTodoItemDto.Task))
         {
             return BadRequest();
         }
+
+        var todoItem = _mapper.Map<TodoItem>(createTodoItemDto);
 
         await _repository.AddItem(todoItem);
         await _repository.SaveChanges();
 
-        return CreatedAtAction(nameof(GetTodoItem), new { id = todoItem.Id }, todoItem);
+        return CreatedAtAction(nameof(GetTodoItem), new { id = todoItem.Id }, createTodoItemDto);
     }
 
-    [HttpPut("{id}")]
-    public async Task<ActionResult> PutTodoItem(int id, TodoItem todoItem)
+    [HttpPut]
+    public async Task<ActionResult> PutTodoItem([FromBody] UpdateTodoItemDto updateTodoItemDto)
     {
-        if (string.IsNullOrWhiteSpace(todoItem.Task))
+        if (string.IsNullOrWhiteSpace(updateTodoItemDto.Task))
         {
             return BadRequest();
         }
 
-        var todoItemExists = await _repository.TodoItemExists(id);
-        if (!todoItemExists)
+        var todoItem = await _repository.GetItemById(updateTodoItemDto.Id);
+
+        if (todoItem is null)
         {
             return NotFound();
         }
-        
-        if (id != todoItem.Id)
-        {
-            return BadRequest();
-        }
 
-        await _repository.EditItem(id, todoItem);
+        _mapper.Map(updateTodoItemDto, todoItem);
+
+        await _repository.UpdateItem(todoItem);
         await _repository.SaveChanges();
 
         return NoContent();
     }
 
-    [HttpDelete("{id}")]
-    public async Task<ActionResult> DeleteTodoItem(int id)
+    [HttpPut("completed")]
+    public async Task<IActionResult> PutCompletedTodo([FromBody] UpdateCompletedTodoItemDto updateCompletedTodoItemDto)
+    {
+        var todoItem = await _repository.GetItemById(updateCompletedTodoItemDto.Id);
+
+        if (todoItem is null)
+        {
+            return NotFound();
+        }
+
+        _mapper.Map(updateCompletedTodoItemDto, todoItem);
+
+        await _repository.UpdateItem(todoItem);
+        await _repository.SaveChanges();
+
+        return NoContent();
+    }
+
+    [HttpDelete("{id:int}")]
+    public async Task<ActionResult> DeleteTodoItem([FromRoute] int id)
     {
         var todoItemExists = await _repository.TodoItemExists(id);
         if (!todoItemExists)
         {
             return NotFound();
         }
-        
+
         await _repository.RemoveItem(id);
         await _repository.SaveChanges();
 
