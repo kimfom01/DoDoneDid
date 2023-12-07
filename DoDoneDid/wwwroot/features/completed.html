@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="stylesheet" href="/css/site.css">
+    <link crossorigin="anonymous" href="/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/bootstrap-icons.min.css" rel="stylesheet">
+    <title>Completed - Do, Done, Did</title>
+</head>
+<body>
+<nav class="navbar bg-dark">
+    <div class="container">
+        <a class="navbar-brand text-light" href="/">
+            Do, Done, Did
+        </a>
+        <div align="right">
+            <a type="button" onclick="logoutUser()" class="btn btn-outline-light">Logout</a>
+        </div>
+    </div>
+</nav>
+<div class="container center">
+    <div id="editForm">
+        <h3 class="mt-5">Edit</h3>
+        <form class="form-group d-flex justify-content-center align-items-center flex-wrap"
+              action="javascript:void(0);" onsubmit="updateCompletedItem()">
+            <input type="hidden" id="edit-id">
+            <input type="hidden" id="user-id">
+            <input type="text" disabled class="form-control w-auto me-3" id="edit-task" minlength="3"
+                   placeholder="Todo task">
+            <select name="status" class="form-select w-auto me-3" required id="edit-status">
+                <option selected value="">-- Please choose a status --</option>
+                <option value="1">Todo</option>
+                <option value="2">In Progress</option>
+                <option value="3">Completed</option>
+            </select>
+            <input class="btn btn-primary me-3" type="submit" value="Save">
+            <a onclick="closeInput()" aria-label="Close">&#10006</a>
+        </form>
+    </div>
+    
+    <h2>Completed Tasks</h2>
+
+    <p id="counter"></p>
+
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th class="col">Task</th>
+            <th class="col">Status</th>
+            <th class="col">Change Status</th>
+            <th class="col">Remove</th>
+        </tr>
+        </thead>
+        <tbody class="table-group-divider" id="tasks"></tbody>
+    </table>
+</div>
+
+<script src="/js/logout.js"></script>
+<script src="/js/completed.js"></script>
+<script src="/js/bootstrap.bundle.min.js"></script>
+<script type="text/javascript"></script>
+</body>
+</html>
