@@ -27,16 +27,18 @@
               action="javascript:void(0);" onsubmit="updateCompletedItem()">
             <input type="hidden" id="edit-id">
             <input type="hidden" id="user-id">
-            <input type="text" disabled class="form-control w-auto me-3" id="edit-task" minlength="3"
-                   placeholder="Todo task">
+            <textarea type="text" disabled class="form-control w-auto me-3" rows="3" cols="23" required
+                      minlength="3" id="edit-task" placeholder="Edit task..."></textarea>
             <select name="status" class="form-select w-auto me-3" required id="edit-status">
                 <option selected value="">-- Please choose a status --</option>
                 <option value="1">Todo</option>
                 <option value="2">In Progress</option>
                 <option value="3">Completed</option>
             </select>
-            <input class="btn btn-primary me-3" type="submit" value="Save">
-            <a onclick="closeInput()" aria-label="Close">&#10006</a>
+            <div class="d-flex">
+                <button class="btn btn-primary w-100 me-3" type="submit">Save</button>
+                <a onclick="closeInput()" class="btn btn-outline-danger">Cancel</a>
+            </div>
         </form>
     </div>
     
