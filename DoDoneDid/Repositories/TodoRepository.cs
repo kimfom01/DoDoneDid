@@ -28,10 +28,10 @@ public class TodoRepository : IRepository
         }
     }
 
-    public async Task<IEnumerable<TodoItem>?> GetItems(string userId)
+    public async Task<IEnumerable<TodoItem>> GetItemsForUser(string userId)
     {
         var items = await _todoDbContext.TodoItems
-            .Where(td => td.UserId == userId)
+            .Where(td => td.UserId == userId && td.Status != Status.Complete)
             .AsNoTracking().ToListAsync();
 
         return items;
@@ -44,24 +44,31 @@ public class TodoRepository : IRepository
         return todoItem;
     }
 
-    public async Task EditItem(int id, TodoItem todoItem)
-    {
-        var oldTodoItem = await _todoDbContext.TodoItems.FirstOrDefaultAsync(t => t.Id == id);
-
-        if (oldTodoItem is not null)
-        {
-            oldTodoItem.Task = todoItem.Task;
-            oldTodoItem.Status = todoItem.Status;
-        }
-    }
-
     public async Task SaveChanges()
     {
         await _todoDbContext.SaveChangesAsync();
     }
 
+    public Task UpdateItem(TodoItem todoItem)
+    {
+        _todoDbContext.Update(todoItem);
+
+        return Task.CompletedTask;
+    }
+
+    public async Task<IEnumerable<TodoItem>> GetCompletedItemsForUser(string userId)
+    {
+        var items = await _todoDbContext.TodoItems
+            .Where(td => td.UserId == userId
+                         && td.Status == Status.Complete)
+            .AsNoTracking().ToListAsync();
+
+        return items;
+    }
+
     public async Task<bool> TodoItemExists(int id)
     {
-        return await _todoDbContext.TodoItems.AnyAsync(t => t.Id == id);
+        return await _todoDbContext
+            .TodoItems.AnyAsync(t => t.Id == id);
     }
 }

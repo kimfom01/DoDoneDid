@@ -6,9 +6,10 @@ public interface IRepository
 {
     Task AddItem(TodoItem todoItem);
     Task RemoveItem(int id);
-    Task<IEnumerable<TodoItem>?> GetItems(string userId);
+    Task<IEnumerable<TodoItem>> GetItemsForUser(string userId);
     Task<TodoItem?> GetItemById(int id);
-    Task EditItem(int id, TodoItem todoItem);
     public Task<bool> TodoItemExists(int id);
     Task SaveChanges();
+    Task UpdateItem(TodoItem todoItem);
+    Task<IEnumerable<TodoItem>> GetCompletedItemsForUser(string userId);
 }
