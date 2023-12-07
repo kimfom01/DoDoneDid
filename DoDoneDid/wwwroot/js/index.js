@@ -1,11 +1,14 @@
 "use strict";
 
-const uri = 'api/TodoList';
+const uri = '/api/TodoList';
 let todos = [];
 const userId = localStorage.getItem("userId");
 
 const getItems = () => {
-    fetch(`${uri}?userId=${userId}`)
+    fetch(`${uri}?userId=${userId}`, {
+        method: "get",
+        credentials: "include"
+    })
         .then(response => response.json())
         .then(data => _displayItems(data))
         .catch(error => console.error('Unable to get items.', error));
@@ -19,7 +22,9 @@ const addItem = () => {
     };
 
     fetch(uri, {
-        method: 'post', headers: {
+        method: 'post',
+        credentials: "include", 
+        headers: {
             'Accept': 'application/json', 'Content-Type': 'application/json'
         }, body: JSON.stringify(todoItem)
     })
@@ -33,7 +38,8 @@ const addItem = () => {
 
 const deleteItem = (id) => {
     fetch(`${uri}/${id}`, {
-        method: 'delete'
+        method: 'delete',
+        credentials: "include"
     })
         .then(() => getItems())
         .catch(error => console.error('Unable to delete item.', error));
@@ -59,8 +65,10 @@ const updateItem = () => {
         userId: userId
     };
 
-    fetch(`${uri}/${itemId}`, {
-        method: 'put', headers: {
+    fetch(`${uri}`, {
+        method: 'put',
+        credentials: "include", 
+        headers: {
             'Accept': 'application/json', 'Content-Type': 'application/json'
         }, body: JSON.stringify(item)
     })
@@ -86,11 +94,11 @@ const _displayItems = (data) => {
     const tBody = document.getElementById('tasks');
     tBody.innerHTML = '';
 
-    _displayCount(data.length);
+    _displayCount(data.length ?? 0);
 
     const icon = document.createElement('i');
 
-    data.forEach(item => {
+    data.length && data.forEach(item => {
         let isCompleteCheckbox = document.createElement('input');
         isCompleteCheckbox.type = 'checkbox';
         isCompleteCheckbox.classList.add("form-check-input");
@@ -149,16 +157,6 @@ const saveUserId = () => {
             })
             .catch(err => console.error(err))
     }
-
-
-}
-
-const logoutUser = () => {
-    localStorage.clear();
-    fetch("/api/Auth/logout")
-        .then(() => {
-            location.href = "/auth/login.html"
-        })
 }
 
 // Call functions below here
