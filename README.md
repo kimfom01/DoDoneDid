@@ -14,7 +14,7 @@
 - Install [Visual Studio](https://visualstudio.microsoft.com/) or Rider (not free).
 
 ### Getting the Project
-- Clone the repository: `git clone https://github.com/kimfom01/TrackYourSpending.git`
+- Clone the repository: `git clone https://github.com/kimfom01/DoDoneDid.git`
 - Alternatively, download and extract the project ZIP file.
 
 ### Configuration
