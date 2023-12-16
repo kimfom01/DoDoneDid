@@ -33,7 +33,7 @@ const addItem = () => {
         .then(() => {
             getItems();
             taskTitleTextBox.value = '';
-            dueDate.value = '';
+            dueDate.setAttribute("value", minDate);
         })
         .catch(error => console.error('Unable to add item.', error));
 }
@@ -192,9 +192,9 @@ getItems();
 
 const dateControl = document.querySelectorAll('input[type="date"]')
 const currentDate = new Date(Date.now())
-const min = currentDate.getFullYear() + "-" + getTwoDigits(currentDate.getMonth() + 1) + "-" + getTwoDigits(currentDate.getDate());
+const minDate = currentDate.getFullYear() + "-" + getTwoDigits(currentDate.getMonth() + 1) + "-" + getTwoDigits(currentDate.getDate());
 dateControl.forEach(date => {
-    date.setAttribute("min", min)
-    date.setAttribute("value", min)
+    date.setAttribute("min", minDate)
+    date.setAttribute("value", minDate)
 })
 
