@@ -193,4 +193,8 @@ getItems();
 const dateControl = document.querySelectorAll('input[type="date"]')
 const currentDate = new Date(Date.now())
 const min = currentDate.getFullYear() + "-" + getTwoDigits(currentDate.getMonth() + 1) + "-" + getTwoDigits(currentDate.getDate());
-dateControl.forEach(date => date.setAttribute("min", min))
+dateControl.forEach(date => {
+    date.setAttribute("min", min)
+    date.setAttribute("value", min)
+})
+
