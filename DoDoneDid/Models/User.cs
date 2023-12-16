@@ -1,3 +1,4 @@
+using DoDoneDid.Entities;
 using Microsoft.AspNetCore.Identity;
 
 namespace DoDoneDid.Models;

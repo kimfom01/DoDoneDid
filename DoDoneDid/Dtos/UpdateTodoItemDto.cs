@@ -1,4 +1,6 @@
-namespace DoDoneDid.Models.Dtos;
+using DoDoneDid.Entities;
+
+namespace DoDoneDid.Dtos;
 
 public class UpdateTodoItemDto
 {

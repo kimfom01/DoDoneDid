@@ -1,6 +1,7 @@
 using System.ComponentModel.DataAnnotations;
+using DoDoneDid.Models;
 
-namespace DoDoneDid.Models;
+namespace DoDoneDid.Entities;
 
 public class TodoItem
 {

@@ -1,5 +1,5 @@
 using DoDoneDid.Data;
-using DoDoneDid.Models;
+using DoDoneDid.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace DoDoneDid.Repositories;

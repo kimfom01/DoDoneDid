@@ -1,3 +1,4 @@
+using DoDoneDid.Entities;
 using DoDoneDid.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;

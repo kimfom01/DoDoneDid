@@ -1,4 +1,4 @@
-using DoDoneDid.Models;
+using DoDoneDid.Entities;
 
 namespace DoDoneDid.Repositories;
 

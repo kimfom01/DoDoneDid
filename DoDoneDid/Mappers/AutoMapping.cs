@@ -1,6 +1,6 @@
 using AutoMapper;
-using DoDoneDid.Models;
-using DoDoneDid.Models.Dtos;
+using DoDoneDid.Dtos;
+using DoDoneDid.Entities;
 
 namespace DoDoneDid.Mappers;
 

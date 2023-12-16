@@ -1,4 +1,4 @@
-namespace DoDoneDid.Models;
+namespace DoDoneDid.Entities;
 
 public enum Status
 {

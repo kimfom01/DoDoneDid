@@ -1,6 +1,7 @@
 using AutoMapper;
+using DoDoneDid.Dtos;
+using DoDoneDid.Entities;
 using DoDoneDid.Models;
-using DoDoneDid.Models.Dtos;
 using DoDoneDid.Repositories;
 using Microsoft.AspNetCore.Mvc;
 
