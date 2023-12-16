@@ -16,14 +16,15 @@ const getItems = () => {
 
 const addItem = () => {
     const taskTitleTextBox = document.getElementById('add-task');
+    const dueDate = document.getElementById("due-date");
 
     const todoItem = {
-        task: taskTitleTextBox.value.trim(), status: 1, userId
+        task: taskTitleTextBox.value.trim(), status: 1, userId, dueDate: dueDate.value
     };
 
     fetch(uri, {
         method: 'post',
-        credentials: "include", 
+        credentials: "include",
         headers: {
             'Accept': 'application/json', 'Content-Type': 'application/json'
         }, body: JSON.stringify(todoItem)
@@ -32,6 +33,7 @@ const addItem = () => {
         .then(() => {
             getItems();
             taskTitleTextBox.value = '';
+            dueDate.value = '';
         })
         .catch(error => console.error('Unable to add item.', error));
 }
@@ -48,31 +50,43 @@ const deleteItem = (id) => {
 const displayEditForm = (id) => {
     const todoItem = todos.find(item => item.id === id);
 
+    const dueDate = new Date(todoItem.dueDate);
+    const date = dueDate.getFullYear() + "-" + getTwoDigits(dueDate.getMonth() + 1) + "-" + getTwoDigits(dueDate.getDate());
+
     document.getElementById('edit-id').value = todoItem.id;
     document.getElementById('edit-task').value = todoItem.task;
+    document.getElementById('edit-due-date').value = date;
     document.getElementById('edit-status').value = todoItem.status;
     document.getElementById('editForm').style.display = 'block';
 }
 
 const updateItem = () => {
-    const itemId = document.getElementById('edit-id').value;
-    const status = document.getElementById('edit-status').value;
-    const task = document.getElementById('edit-task').value.trim();
+    const itemId = document.getElementById('edit-id');
+    const status = document.getElementById('edit-status');
+    const dueDate = document.getElementById('edit-due-date');
+    const task = document.getElementById('edit-task');
     const item = {
-        id: parseInt(itemId, 10),
-        task: task,
-        status: parseInt(status, 10),
-        userId: userId
+        id: parseInt(itemId.value, 10),
+        task: task.value.trim(),
+        status: parseInt(status.value, 10),
+        userId: userId,
+        dueDate: dueDate.value
     };
 
     fetch(`${uri}`, {
         method: 'put',
-        credentials: "include", 
+        credentials: "include",
         headers: {
             'Accept': 'application/json', 'Content-Type': 'application/json'
         }, body: JSON.stringify(item)
     })
-        .then(() => getItems())
+        .then(() => {
+            getItems()
+            itemId.value = "";
+            status.value = "";
+            dueDate.value = "";
+            task.value = "";
+        })
         .catch(error => console.error('Unable to update item.', error));
 
     closeInput();
@@ -116,23 +130,30 @@ const _displayItems = (data) => {
         status.classList.add("btn", `${(item.status === 1) ? "btn-success" : (item.status === 2) ? "btn-warning" : "btn-secondary"}`, "m-0");
         status.innerText = item.status === 1 ? "Todo" : item.status === 2 ? "In Progress" : "Completed"
 
+        let dueDate = document.createElement("p");
+        dueDate.innerText = new Date(item.dueDate).toLocaleDateString();
+
         let tr = tBody.insertRow();
 
         let td1 = tr.insertCell(0);
         let taskNode = document.createElement("p");
         taskNode.innerText = item.task;
         taskNode.classList.add("wrap-text");
+        taskNode.classList.add("text-start");
         item.status === 3 ? td1.classList.add("text-decoration-line-through") : ""
         td1.appendChild(taskNode);
 
         let td2 = tr.insertCell(1);
-        td2.appendChild(status);
+        td2.appendChild(dueDate);
 
         let td3 = tr.insertCell(2);
-        td3.appendChild(editButton);
+        td3.appendChild(status);
 
         let td4 = tr.insertCell(3);
-        td4.appendChild(deleteButton);
+        td4.appendChild(editButton);
+
+        let td5 = tr.insertCell(4);
+        td5.appendChild(deleteButton);
     });
 
     todos = data;
@@ -161,6 +182,15 @@ const saveUserId = () => {
     }
 }
 
+const getTwoDigits = (value) => {
+    return value < 10 ? `0${value}` : value;
+}
+
 // Call functions below here
 saveUserId();
 getItems();
+
+const dateControl = document.querySelectorAll('input[type="date"]')
+const currentDate = new Date(Date.now())
+const min = currentDate.getFullYear() + "-" + getTwoDigits(currentDate.getMonth() + 1) + "-" + getTwoDigits(currentDate.getDate());
+dateControl.forEach(date => date.setAttribute("min", min))
