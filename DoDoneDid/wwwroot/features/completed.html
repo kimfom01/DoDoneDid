@@ -27,21 +27,24 @@
               action="javascript:void(0);" onsubmit="updateCompletedItem()">
             <input type="hidden" id="edit-id">
             <input type="hidden" id="user-id">
-            <textarea type="text" disabled class="form-control w-auto me-3" rows="3" cols="23" required
+            <div class="d-flex flex-column">
+            <textarea type="text" disabled class="form-control w-auto" rows="3" cols="23" required
                       minlength="3" id="edit-task" placeholder="Edit task..."></textarea>
-            <select name="status" class="form-select w-auto me-3" required id="edit-status">
-                <option selected value="">-- Please choose a status --</option>
-                <option value="1">Todo</option>
-                <option value="2">In Progress</option>
-                <option value="3">Completed</option>
-            </select>
-            <div class="d-flex">
-                <button class="btn btn-primary w-100 me-3" type="submit">Save</button>
-                <a onclick="closeInput()" class="btn btn-outline-danger">Cancel</a>
+                <input class="form-control my-3" disabled type="date" name="due-date" id="edit-due-date">
+                <select name="status" class="form-select w-auto my-3" required id="edit-status">
+                    <option selected value="">-- Please choose a status --</option>
+                    <option value="1">Todo</option>
+                    <option value="2">In Progress</option>
+                    <option value="3">Completed</option>
+                </select>
+                <div class="d-flex">
+                    <button class="btn btn-primary w-100 me-3" type="submit">Save</button>
+                    <a onclick="closeInput()" class="btn btn-outline-danger">Cancel</a>
+                </div>
             </div>
         </form>
     </div>
-    
+
     <h2>Completed Tasks</h2>
 
     <p id="counter"></p>
@@ -49,7 +52,8 @@
     <table class="table table-hover">
         <thead>
         <tr>
-            <th class="col">Task</th>
+            <th class="col text-start">Task</th>
+            <th class="col">Due Date</th>
             <th class="col">Status</th>
             <th class="col">Change Status</th>
             <th class="col">Remove</th>
