@@ -38,3 +38,4 @@
 ## Features
 - Individual accounts
 - Track tasks
+- Add deadlines to tasks
