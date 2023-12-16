@@ -32,7 +32,8 @@ public class TodoDbContext : IdentityDbContext<User>
                     Id = 1,
                     Status = Status.Todo,
                     Task = "Fix Auth",
-                    UserId = new Guid("a24b2911-31c0-43ed-8657-4878e3abe626").ToString()
+                    UserId = new Guid("a24b2911-31c0-43ed-8657-4878e3abe626").ToString(),
+                    DueDate = DateTime.Now
                 });
     }
 }

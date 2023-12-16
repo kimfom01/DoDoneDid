@@ -9,6 +9,7 @@ public class TodoItem
     [MaxLength(1000)]
     public required string Task { get; set; }
     public Status Status { get; set; }
+    public DateTime? DueDate { get; set; }
     
     [MaxLength(100)]
     public required string UserId { get; set; }
