@@ -32,9 +32,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
     await context.Database.EnsureDeletedAsync();
+    await context.Database.EnsureCreatedAsync();
 }
-
-await context.Database.EnsureCreatedAsync();
 
 app.UseDefaultFiles();
 app.UseStaticFiles();
