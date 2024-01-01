@@ -5,7 +5,7 @@ namespace DoDoneDid.Repositories;
 public interface IRepository
 {
     Task AddItem(TodoItem todoItem);
-    Task RemoveItem(int id);
+    Task DeleteItem(int id);
     Task<IEnumerable<TodoItem>> GetItemsForUser(string userId);
     Task<TodoItem?> GetItemById(int id);
     public Task<bool> TodoItemExists(int id);

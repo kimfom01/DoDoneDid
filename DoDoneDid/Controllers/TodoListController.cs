@@ -1,7 +1,6 @@
 using AutoMapper;
 using DoDoneDid.Dtos;
 using DoDoneDid.Entities;
-using DoDoneDid.Models;
 using DoDoneDid.Repositories;
 using Microsoft.AspNetCore.Mvc;
 
@@ -125,13 +124,15 @@ public class TodoListController : ControllerBase
     [HttpDelete("{id:int}")]
     public async Task<ActionResult> DeleteTodoItem([FromRoute] int id)
     {
+        // TODO: Fix round double trip to the database before deleting
+        // Maybe use custom exceptions?? 
         var todoItemExists = await _repository.TodoItemExists(id);
         if (!todoItemExists)
         {
             return NotFound();
         }
 
-        await _repository.RemoveItem(id);
+        await _repository.DeleteItem(id);
         await _repository.SaveChanges();
 
         return NoContent();
