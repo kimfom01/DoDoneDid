@@ -18,20 +18,25 @@ public class TodoRepository : IRepository
         await _todoDbContext.AddAsync(todoItem);
     }
 
-    public async Task RemoveItem(int id)
+    public async Task DeleteItem(int id)
     {
         var todoItem = await _todoDbContext.TodoItems.FirstOrDefaultAsync(t => t.Id == id);
 
         if (todoItem is not null)
         {
-            _todoDbContext.Remove(todoItem);
+            todoItem.Deleted = true;
+            _todoDbContext.Update(todoItem);
         }
     }
 
     public async Task<IEnumerable<TodoItem>> GetItemsForUser(string userId)
     {
         var items = await _todoDbContext.TodoItems
-            .Where(td => td.UserId == userId && td.Status != Status.Complete)
+            .Where(td => 
+                td.UserId == userId 
+                && td.Status != Status.Complete
+                && td.Deleted == false
+                )
             .AsNoTracking().ToListAsync();
 
         return items;
@@ -59,8 +64,11 @@ public class TodoRepository : IRepository
     public async Task<IEnumerable<TodoItem>> GetCompletedItemsForUser(string userId)
     {
         var items = await _todoDbContext.TodoItems
-            .Where(td => td.UserId == userId
-                         && td.Status == Status.Complete)
+            .Where(td => 
+                td.UserId == userId 
+                && td.Status == Status.Complete
+                && td.Deleted == false
+                )
             .AsNoTracking().ToListAsync();
 
         return items;
