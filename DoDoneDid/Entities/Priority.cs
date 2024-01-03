@@ -2,7 +2,7 @@ namespace DoDoneDid.Entities;
 
 public enum Priority
 {
-    Low,
+    Low = 1,
     Medium,
     High
 }
