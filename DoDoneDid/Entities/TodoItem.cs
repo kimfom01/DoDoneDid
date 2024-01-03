@@ -11,6 +11,7 @@ public class TodoItem
     public Status Status { get; set; }
     public DateTime? DueDate { get; set; }
     public bool Deleted { get; set; }
+    public Priority Priority { get; set; }
     
     [MaxLength(100)]
     public required string UserId { get; set; }

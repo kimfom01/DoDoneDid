@@ -9,4 +9,5 @@ public class UpdateTodoItemDto
     public Status Status { get; set; }
     public DateTime? DueDate { get; set; }
     public required string UserId { get; set; }
+    public Priority Priority { get; set; }
 }
