@@ -17,9 +17,14 @@ const getItems = () => {
 const addItem = () => {
     const taskTitleTextBox = document.getElementById('add-task');
     const dueDate = document.getElementById("due-date");
+    const priority = document.getElementById("input-priority");
 
     const todoItem = {
-        task: taskTitleTextBox.value.trim(), status: 1, userId, dueDate: dueDate.value
+        task: taskTitleTextBox.value.trim(),
+        status: 1,
+        userId,
+        dueDate: dueDate.value,
+        priority: parseInt(priority.value, 10)
     };
 
     fetch(uri, {
@@ -65,12 +70,15 @@ const updateItem = () => {
     const status = document.getElementById('edit-status');
     const dueDate = document.getElementById('edit-due-date');
     const task = document.getElementById('edit-task');
+    const priority = document.getElementById("edit-priority");
+    
     const item = {
         id: parseInt(itemId.value, 10),
         task: task.value.trim(),
         status: parseInt(status.value, 10),
         userId: userId,
-        dueDate: dueDate.value
+        dueDate: dueDate.value,
+        priority: parseInt(priority.value, 10)
     };
 
     fetch(`${uri}`, {
@@ -126,6 +134,10 @@ const _displayItems = (data) => {
         deleteButton.classList.add("btn", "btn-outline-danger", "bi", "bi-trash-fill");
         deleteButton.setAttribute('onclick', `deleteItem(${item.id})`);
 
+        let priority = document.createElement("p");
+        priority.classList.add("btn", `${(item.priority === 2) ? "btn-warning" : (item.priority === 3) ? "btn-danger" : "btn-secondary"}`, "m-0");
+        priority.innerText = item.priority === 2 ? "Medium" : item.priority === 3 ? "High" : "Low"
+
         let status = document.createElement("p");
         status.classList.add("btn", `${(item.status === 1) ? "btn-success" : (item.status === 2) ? "btn-warning" : "btn-secondary"}`, "m-0");
         status.innerText = item.status === 1 ? "Todo" : item.status === 2 ? "In Progress" : "Completed"
@@ -144,16 +156,19 @@ const _displayItems = (data) => {
         td1.appendChild(taskNode);
 
         let td2 = tr.insertCell(1);
-        td2.appendChild(dueDate);
+        td2.appendChild(priority);
 
         let td3 = tr.insertCell(2);
-        td3.appendChild(status);
+        td3.appendChild(dueDate);
 
         let td4 = tr.insertCell(3);
-        td4.appendChild(editButton);
+        td4.appendChild(status);
 
         let td5 = tr.insertCell(4);
-        td5.appendChild(deleteButton);
+        td5.appendChild(editButton);
+
+        let td6 = tr.insertCell(5);
+        td6.appendChild(deleteButton);
     });
 
     todos = data;

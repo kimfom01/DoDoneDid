@@ -30,10 +30,17 @@
 <div class="container center">
     <div class="d-flex flex-column">
         <h3 class="mt-3">Add a new task</h3>
-        <form class="form-group d-flex justify-content-center" action="javascript:void(0);" method="post" onsubmit="addItem()">
+        <form class="form-group d-flex justify-content-center" action="javascript:void(0);" method="post"
+              onsubmit="addItem()">
             <div class="flex-column">
             <textarea type="text" class="form-control w-auto" rows="3" cols="23" required
                       minlength="3" id="add-task" placeholder="New task..."></textarea>
+                <select name="status" class="form-select w-100 my-3" required id="input-priority">
+                    <option selected value="">-- Please set a priority --</option>
+                    <option value="1">Low</option>
+                    <option value="2">Medium</option>
+                    <option value="3">High</option>
+                </select>
                 <input class="form-control my-3" type="date" name="due-date" id="due-date">
                 <input class="btn btn-primary w-100" type="submit" value="Add">
             </div>
@@ -50,6 +57,12 @@
                 <textarea type="text" class="form-control w-auto" rows="3" cols="23" required
                           minlength="3" id="edit-task" placeholder="Edit task..."></textarea>
                 <input class="form-control my-3" type="date" name="due-date" id="edit-due-date">
+                <select name="status" class="form-select w-auto my-3" required id="edit-priority">
+                    <option selected value="">-- Please set a priority --</option>
+                    <option value="1">Low</option>
+                    <option value="2">Medium</option>
+                    <option value="3">High</option>
+                </select>
                 <select name="status" class="form-select w-auto my-3" required id="edit-status">
                     <option selected value="">-- Please choose a status --</option>
                     <option value="1">Todo</option>
@@ -70,6 +83,7 @@
         <thead>
         <tr>
             <th class="col text-start">Task</th>
+            <th class="col">Priority</th>
             <th class="col">Due Date</th>
             <th class="col">Status</th>
             <th class="col">Change Status</th>
