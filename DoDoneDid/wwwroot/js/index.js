@@ -52,7 +52,7 @@ const deleteItem = (id) => {
         .catch(error => console.error('Unable to delete item.', error));
 }
 
-const displayEditForm = (id) => {
+const displayUpdateForm = (id) => {
     const todoItem = todos.find(item => item.id === id);
 
     const dueDate = new Date(todoItem.dueDate);
@@ -62,6 +62,7 @@ const displayEditForm = (id) => {
     document.getElementById('edit-task').value = todoItem.task;
     document.getElementById('edit-due-date').value = date;
     document.getElementById('edit-status').value = todoItem.status;
+    document.getElementById('edit-priority').value = todoItem.priority;
     document.getElementById('editForm').style.display = 'block';
 }
 
@@ -128,7 +129,7 @@ const _displayItems = (data) => {
 
         let editButton = icon.cloneNode(false);
         editButton.classList.add("btn", "btn-outline-primary", "bi", "bi-pen-fill");
-        editButton.setAttribute('onclick', `displayEditForm(${item.id})`);
+        editButton.setAttribute('onclick', `displayUpdateForm(${item.id})`);
 
         let deleteButton = icon.cloneNode(false);
         deleteButton.classList.add("btn", "btn-outline-danger", "bi", "bi-trash-fill");
