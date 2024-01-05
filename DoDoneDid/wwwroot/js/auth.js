@@ -15,9 +15,9 @@ const registerUser = () => {
             if (response.status !== 200) {
                 const errorResponse = response.json();
                 errorResponse.then(err => {
-                    throw new Error(Object.values(err.errors).map(er => er).join(","))
+                    throw new Error(Object.values(err.errors).map(er => er).join("\n"))
                 }).catch(error => {
-                    registerMessage.innerText = error.message;
+                    registerMessage.innerHTML = "<div class='text-danger'>Registration Failed</div>";
                     console.error(error)
                 });
             } else {
@@ -46,7 +46,7 @@ const loginUser = () => {
                 errorResponse.then(err => {
                     throw new Error(`Login ${err.detail}`)
                 }).catch(error => {
-                    loginMessage.innerText = error.message;
+                    loginMessage.innerHTML = "<div class='text-danger'>Email or password incorrect</div>";
                     console.error(error)
                 });
             } else {
@@ -62,7 +62,7 @@ const password = document.querySelector("#password");
 togglePassword.addEventListener("click", function () {
     const type = password.getAttribute("type") === "password" ? "text" : "password";
     password.setAttribute("type", type);
-    
+
     this.classList.toggle('bi-eye');
     this.classList.toggle('bi-eye-slash');
 });
